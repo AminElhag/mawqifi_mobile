@@ -77,7 +77,7 @@ class Globs {
 }
 
 class SVKey {
-  static const mainUrl = "http://192.168.48.44:8080";
+  static const mainUrl = "http://192.168.48.44:9215";
   static const baseUrl = "$mainUrl/api/";
   static const nodeUrl = mainUrl;
   static const authBaseUrl = "${baseUrl}auth/";
@@ -88,6 +88,9 @@ class SVKey {
 
   static const svCreateProfile = "${baseUrl}profile";
   static const svAddVehicle = "${svCreateProfile}/vehicle";
+
+  static const svGetNearbyParking = "${baseUrl}parking";
+  static const svGetParkingByName = "$svGetNearbyParking/name";
 }
 
 class KKey {

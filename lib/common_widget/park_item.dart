@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:mawqifi/common/color-extension.dart';
 
@@ -11,7 +13,8 @@ class ParkItem extends StatefulWidget {
       required this.price,
       required this.onPressed});
 
-  final String imageUrl, name, distance, details, price;
+  final String imageUrl, name, details;
+  final double distance, price;
   final VoidCallback onPressed;
 
   @override
@@ -49,7 +52,7 @@ class _ParkItemState extends State<ParkItem> {
                             fontWeight: FontWeight.w700, fontSize: 12),
                       ),
                       Text(
-                        widget.distance,
+                        "${widget.distance} km",
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 10),
                       ),
@@ -65,7 +68,7 @@ class _ParkItemState extends State<ParkItem> {
                   ),
                 ),
                 Text(
-                  widget.price,
+                  "${widget.price}\$",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w700),

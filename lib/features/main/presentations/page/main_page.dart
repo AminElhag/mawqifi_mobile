@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
       )),
       body: pages[pageIndex],
       bottomNavigationBar: Container(
-        height: 80,
+        height: 70,
         decoration: const BoxDecoration(
           color: Colors.transparent,
         ),

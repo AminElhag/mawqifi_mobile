@@ -8,6 +8,7 @@ import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/http_override.dart';
 import 'package:mawqifi/features/auth/mobile_login/presentations/cubit/mobile_login/mobile_login_cubit.dart';
 import 'package:mawqifi/features/auth/mobile_login/presentations/cubit/otp/otp_cubit.dart';
+import 'package:mawqifi/features/home/presentations/cubit/home_cubit.dart';
 import 'package:mawqifi/features/main/presentations/page/main_page.dart';
 import 'package:mawqifi/features/proflie/presentations/cubit/add_vehicle/add_vehicle_cubit.dart';
 import 'package:mawqifi/features/proflie/presentations/cubit/create_profile/create_profile_cubit.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AddVehicleCubit(),
-        )
+        ),
+        BlocProvider(create: (context) => HomeCubit()),
       ],
       child: MaterialApp(
         title: 'Mawqifi',
