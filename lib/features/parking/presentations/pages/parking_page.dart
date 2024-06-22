@@ -6,26 +6,26 @@ import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common_model/nearby_parking_model.dart';
 import 'package:mawqifi/common_widget/park_item.dart';
-import 'package:mawqifi/features/home/presentations/cubit/home_cubit.dart';
-import 'package:mawqifi/features/parking_details/presentations/page/parking_details_page.dart';
+import 'package:mawqifi/features/parking/presentations/cubit/parking_cubit.dart';
+import 'package:mawqifi/features/parking/presentations/pages/parking_details_page.dart';
 import 'package:quickalert/quickalert.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ParkingPage extends StatefulWidget {
+  const ParkingPage({super.key});
 
   static route() => MaterialPageRoute(
-        builder: (context) => const HomePage(),
+        builder: (context) => const ParkingPage(),
       );
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ParkingPage> createState() => _ParkingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ParkingPageState extends State<ParkingPage> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeCubit>().getNearbyParking();
+    context.read<ParkingCubit>().getNearbyParking();
   }
 
   Timer searchOnStoppedTyping = Timer(
@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
   search(value) {
     var s = value as String?;
     if(s == null || s.isEmpty){
-      context.read<HomeCubit>().getNearbyParking();
+      context.read<ParkingCubit>().getNearbyParking();
     }else{
-      context.read<HomeCubit>().getParkingByName(value);
+      context.read<ParkingCubit>().getParkingByName(value);
     }
   }
 
@@ -57,20 +57,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final List<NearbyParkingModel> apiList = [];
 
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<ParkingCubit, ParkingState>(
       listener: (context, state) {
-        if (state is HomeHUDState) {
+        if (state is ParkingHUDState) {
           Globs.showHUD();
-        } else if (state is HomeGetNearbyParkingApiResultState) {
+        } else if (state is ParkingGetNearbyParkingApiResultState) {
           apiList.clear();
           apiList.addAll(state.nearbyParkingModel);
           Globs.hideHUD();
-        } else if (state is HomeGetParkingByNameApiResultState) {
+        } else if (state is ParkingGetParkingByNameApiResultState) {
           apiList.clear();
           print(state.nearbyParkingModel);
           apiList.addAll(state.nearbyParkingModel);
           Globs.hideHUD();
-        } else if (state is HomeErrorState) {
+        } else if (state is ParkingErrorState) {
           Globs.hideHUD();
           QuickAlert.show(
             context: context,

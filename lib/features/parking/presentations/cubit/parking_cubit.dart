@@ -9,14 +9,14 @@ import 'package:mawqifi/common/service_call.dart';
 import 'package:mawqifi/common_model/nearby_parking_model.dart';
 import 'package:meta/meta.dart';
 
-part 'home_state.dart';
+part 'parking_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+class ParkingCubit extends Cubit<ParkingState> {
+  ParkingCubit() : super(ParkingInitial());
 
   void getNearbyParking() {
     try {
-      emit(HomeHUDState());
+      emit(ParkingHUDState());
       Location.getLocation().then(
         (position) {
           ServiceCall.get(
@@ -26,31 +26,31 @@ class HomeCubit extends Cubit<HomeState> {
             },
             SVKey.svGetNearbyParking,
             withFailure: (response) async {
-              emit(HomeErrorState(response));
+              emit(ParkingErrorState(response));
             },
             withSuccess: (response) async {
               if (response.statusCode == HttpStatus.ok) {
                 Iterable l = json.decode(response.body);
                 List<NearbyParkingModel> nps = List<NearbyParkingModel>.from(
                     l.map((model) => NearbyParkingModel.fromJson(model)));
-                emit(HomeGetNearbyParkingApiResultState(
+                emit(ParkingGetNearbyParkingApiResultState(
                     nearbyParkingModel: nps));
-                emit(HomeInitial());
+                emit(ParkingInitial());
               } else {
-                emit(HomeErrorState(response.reasonPhrase ?? "Unknown error"));
+                emit(ParkingErrorState(response.reasonPhrase ?? "Unknown error"));
               }
             },
           );
         },
       );
     } catch (e) {
-      emit(HomeErrorState(e.toString()));
+      emit(ParkingErrorState(e.toString()));
     }
   }
 
   void getParkingByName(name) {
     try {
-      emit(HomeHUDState());
+      emit(ParkingHUDState());
       Location.getLocation().then(
         (position) {
           ServiceCall.get(
@@ -61,25 +61,25 @@ class HomeCubit extends Cubit<HomeState> {
             },
             SVKey.svGetNearbyParking,
             withFailure: (response) async {
-              emit(HomeErrorState(response.toString()));
+              emit(ParkingErrorState(response.toString()));
             },
             withSuccess: (response) async {
               if (response.statusCode == HttpStatus.ok) {
                 Iterable l = json.decode(response.body);
                 List<NearbyParkingModel> nps = List<NearbyParkingModel>.from(
                     l.map((model) => NearbyParkingModel.fromJson(model)));
-                emit(HomeGetParkingByNameApiResultState(
+                emit(ParkingGetParkingByNameApiResultState(
                     nearbyParkingModel: nps));
-                emit(HomeInitial());
+                emit(ParkingInitial());
               } else {
-                emit(HomeErrorState(response.reasonPhrase ?? "Unknown error"));
+                emit(ParkingErrorState(response.reasonPhrase ?? "Unknown error"));
               }
             },
           );
         },
       );
     } catch (e) {
-      emit(HomeErrorState(e.toString()));
+      emit(ParkingErrorState(e.toString()));
     }
   }
 }

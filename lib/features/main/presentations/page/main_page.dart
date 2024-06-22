@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/features/booking/presentation/page/booking_page.dart';
-import 'package:mawqifi/features/home/presentations/pages/home_page.dart';
+import 'package:mawqifi/features/parking/presentations/pages/parking_page.dart';
 import 'package:mawqifi/features/proflie/presentations/pages/profile_page.dart';
 import 'package:mawqifi/features/search/presentations/pages/search_page.dart';
 
@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   bool hasNewNotifications = Random().nextBool();
 
   final pages = [
-    const HomePage(),
+    const ParkingPage(),
     const SearchPage(),
     const BookingPage(),
     const ProfilePage()
