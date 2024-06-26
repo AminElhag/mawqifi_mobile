@@ -28,7 +28,7 @@ class AddVehicleCubit extends Cubit<AddVehicleState> {
           "car_type_id": carTypeId,
           "phone_number": Globs.udValueString(PreferenceKey.phoneNumber),
         },
-        SVKey.svAddVehicle,
+        SVKey.svVehicle,
         withFailure: (error) async {
           emit(AddVehicleErrorState(error));
         },

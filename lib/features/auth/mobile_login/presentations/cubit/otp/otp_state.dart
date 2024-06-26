@@ -12,7 +12,16 @@ final class OtpInitial extends OtpState {}
 
 final class OtpHUDState extends OtpState {}
 
-final class OtpApiResultState extends OtpState {}
+final class OtpWithoutProfileApiResultState extends OtpState {}
+
+final class OtpWithProfileApiResultState extends OtpState {
+  final ProfileModel? profileModel;
+
+  const OtpWithProfileApiResultState({required this.profileModel});
+
+  @override
+  List<Object> get props => [];
+}
 
 final class ResendOtpApiResultState extends OtpState {}
 

@@ -24,6 +24,12 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   TextEditingController modelController = TextEditingController();
   TextEditingController platNoController = TextEditingController();
   TextEditingController colorController = TextEditingController();
+
+  final _brandFormKey = GlobalKey<FormState>();
+  final _modelFormKey = GlobalKey<FormState>();
+  final _platNoFormKey = GlobalKey<FormState>();
+  final _colorFormKey = GlobalKey<FormState>();
+
   final List<bool> _isCarType = [false, true, false];
   int selectCarTypeId = 1;
 
@@ -73,6 +79,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                 children: [
                   const SizedBox(height: 24),
                   TextFieldWidget(
+                    validationKey: _brandFormKey,
                     textInputType: TextInputType.name,
                     hintText: 'BMW',
                     labelText: 'Brand',
@@ -87,6 +94,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                   ),
                   const SizedBox(height: 24),
                   TextFieldWidget(
+                    validationKey: _modelFormKey,
                       textInputType: TextInputType.name,
                       hintText: "ABC",
                       labelText: "Model",
@@ -100,6 +108,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                       }),
                   const SizedBox(height: 24),
                   TextFieldWidget(
+                    validationKey: _platNoFormKey,
                       textInputType: TextInputType.name,
                       labelText: "Plat No",
                       hintText: "YTP123",
@@ -113,6 +122,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                       }),
                   const SizedBox(height: 24),
                   TextFieldWidget(
+                    validationKey: _colorFormKey,
                       textInputType: TextInputType.name,
                       labelText: "Color",
                       hintText: "White",
@@ -193,13 +203,18 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                     backgroundColor: TColor.primary,
                     title: "Register",
                     onPressed: () {
-                      context.read<AddVehicleCubit>().addVehicleSubmit(
-                            brandController.text,
-                            modelController.text,
-                            platNoController.text,
-                            colorController.text,
-                            selectCarTypeId,
-                          );
+                      if(
+                      _brandFormKey.currentState!.validate() && _modelFormKey.currentState!.validate()
+                      && _platNoFormKey.currentState!.validate() && _colorFormKey.currentState!.validate()
+                      ){
+                        context.read<AddVehicleCubit>().addVehicleSubmit(
+                          brandController.text,
+                          modelController.text,
+                          platNoController.text,
+                          colorController.text,
+                          selectCarTypeId,
+                        );
+                      }
                     },
                   ),
                   const SizedBox(

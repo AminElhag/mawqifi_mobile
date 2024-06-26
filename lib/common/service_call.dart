@@ -59,6 +59,7 @@ class ServiceCall {
     ResFailure? withFailure,
   }) {
     Future(() {
+      print(parameter);
       try {
         var headers = {"Content-Type": "application/json"};
         if (isTokenApi) {

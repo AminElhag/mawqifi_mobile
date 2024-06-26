@@ -87,10 +87,12 @@ class SVKey {
   static const svOtp = "${authBaseUrl}otp/verification";
 
   static const svCreateProfile = "${baseUrl}profile";
-  static const svAddVehicle = "${svCreateProfile}/vehicle";
+  static const svVehicle = "${svCreateProfile}/vehicle";
 
   static const svGetNearbyParking = "${baseUrl}parking";
-  static const svGetParkingByName = "$svGetNearbyParking/name";
+  static const svGetParkingDetails = "${svGetNearbyParking}/details";
+
+  static const svBooking = "${baseUrl}booking";
 }
 
 class KKey {
@@ -112,4 +114,5 @@ class PreferenceKey {
   static const phoneNumber = "PHONE_NUMBER";
   static const fullName = "FULL_NAME";
   static const homeAddress = "HOME_ADDRESS";
+  static const userId = "USER_ID";
 }

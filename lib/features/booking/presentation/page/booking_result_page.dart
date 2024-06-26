@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/features/main/presentations/page/main_page.dart';
 
-class PaymentResultPage extends StatefulWidget {
-  const PaymentResultPage({super.key});
+class BookingResultPage extends StatefulWidget {
+  const BookingResultPage({super.key});
 
   static route() =>
-      MaterialPageRoute(builder: (context) => const PaymentResultPage());
+      MaterialPageRoute(builder: (context) => const BookingResultPage());
 
   @override
-  State<PaymentResultPage> createState() => _PaymentResultPageState();
+  State<BookingResultPage> createState() => _BookingResultPageState();
 }
 
-class _PaymentResultPageState extends State<PaymentResultPage> {
+class _BookingResultPageState extends State<BookingResultPage> {
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,7 @@ class _PaymentResultPageState extends State<PaymentResultPage> {
             height: 6,
           ),
           Text(
-            "Payment Successful !!",
+            "Booking Successful !!",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           Text(

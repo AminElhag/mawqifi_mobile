@@ -1,6 +1,5 @@
 part of 'parking_cubit.dart';
 
-@immutable
 sealed class ParkingState extends Equatable {
   const ParkingState();
 
@@ -34,6 +33,14 @@ final class ParkingErrorState extends ParkingState {
   final String errorMessage;
 
   const ParkingErrorState(this.errorMessage);
+
+  @override
+  List<Object> get props => [];
+}
+final class ParkingLocationPermissionNotEnabledErrorState extends ParkingState {
+  final String errorMessage;
+
+  const ParkingLocationPermissionNotEnabledErrorState(this.errorMessage);
 
   @override
   List<Object> get props => [];

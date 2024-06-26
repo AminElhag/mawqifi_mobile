@@ -7,13 +7,15 @@ class TextFieldWidget extends StatefulWidget {
       required this.labelText,
       required this.textInputType,
       this.validator,
-      this.controller});
+      this.controller,
+      this.validationKey});
 
   final String hintText;
   final String labelText;
   final TextInputType textInputType;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final GlobalKey<FormState>? validationKey;
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -36,18 +38,22 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: widget.textInputType,
-      decoration: InputDecoration(
-        hintText: widget.hintText,
-        labelText: widget.labelText,
-        helperStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+    return Form(
+      key: widget.validationKey,
+      child: TextFormField(
+        keyboardType: widget.textInputType,
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          helperStyle:
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
+        validator: widget.validator,
+        controller: widget.controller,
       ),
-      validator: widget.validator,
-      controller: widget.controller,
     );
   }
 }

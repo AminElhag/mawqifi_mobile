@@ -159,10 +159,6 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
                         }
                       }
                     }
-
-                    /*
-                    context.read<MobileLoginCubit>().phoneNumberLogin(widget.)
-                    */ /*Navigator.push(context, OTPPage.route("+249967880410"));*/
                   },
                 ),
                 const SizedBox(

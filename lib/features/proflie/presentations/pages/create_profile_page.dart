@@ -25,7 +25,8 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   late final String fullName, homeAddress;
   final List<bool> _isGender = [false, true];
   int selectGender = 1;
-  final _formKey = GlobalKey<FormState>();
+  final _fullNameFormKey = GlobalKey<FormState>();
+  final _homeAddressFormKey = GlobalKey<FormState>();
   final fullNameController = TextEditingController();
   final homeAddressController = TextEditingController();
 
@@ -64,6 +65,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             Globs.udIntSet(
                 state.profileModel.genderTypeId, PreferenceKey.genderTypeId);
             Globs.udBoolSet(true, PreferenceKey.userLogin);
+            Globs.udIntSet(state.profileModel.userId, PreferenceKey.userId);
             Navigator.push(context, AddVehiclePage.route());
           } else if (state is CreateProfileErrorState) {
             Globs.hideHUD();
@@ -82,101 +84,103 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFieldWidget(
-                      textInputType: TextInputType.name,
-                      hintText: 'John Smith',
-                      labelText: 'Full name',
-                      validator: (p0) {
-                        if (p0 == null || p0.length > 6) {
-                          return "Please Enter you full name";
-                        }
-                        return null;
-                      },
-                      controller: fullNameController,
-                    ),
-                    const SizedBox(height: 24),
-                    TextFieldWidget(
-                      textInputType: TextInputType.streetAddress,
-                      hintText: "2929 Rayhanah Bint Zaid",
-                      labelText: "Home Address",
-                      validator: (p0) {
-                        if (p0 == null || p0.isEmpty) {
-                          return "Please Enter you home address";
-                        }
-                        return null;
-                      },
-                      controller: homeAddressController,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          "Gander",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        ToggleButtons(
-                          isSelected: _isGender,
-                          onPressed: (int index) {
-                            selectGender = index;
-                            setState(() {
-                              for (int i = 0; i < _isGender.length; i++) {
-                                _isGender[i] = i == index;
-                              }
-                            });
-                          },
-                          borderColor: TColor.secondary,
-                          selectedBorderColor: TColor.primary,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          children: const <Widget>[
-                            SizedBox(
-                              width: 80,
-                              child: Column(
-                                children: [Icon(Icons.female), Text("Female")],
-                              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFieldWidget(
+                    validationKey: _fullNameFormKey,
+                    textInputType: TextInputType.name,
+                    hintText: 'John Smith',
+                    labelText: 'Full name',
+                    validator: (p0) {
+                      if (p0 == null || p0.length > 6) {
+                        return "Please Enter you full name";
+                      }
+                      return null;
+                    },
+                    controller: fullNameController,
+                  ),
+                  const SizedBox(height: 24),
+                  TextFieldWidget(
+                    validationKey: _homeAddressFormKey,
+                    textInputType: TextInputType.streetAddress,
+                    hintText: "2929 Rayhanah Bint Zaid",
+                    labelText: "Home Address",
+                    validator: (p0) {
+                      if (p0 == null || p0.isEmpty) {
+                        return "Please Enter you home address";
+                      }
+                      return null;
+                    },
+                    controller: homeAddressController,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Gander",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 16),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      ToggleButtons(
+                        isSelected: _isGender,
+                        onPressed: (int index) {
+                          selectGender = index;
+                          setState(() {
+                            for (int i = 0; i < _isGender.length; i++) {
+                              _isGender[i] = i == index;
+                            }
+                          });
+                        },
+                        borderColor: TColor.secondary,
+                        selectedBorderColor: TColor.primary,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        children: const <Widget>[
+                          SizedBox(
+                            width: 80,
+                            child: Column(
+                              children: [Icon(Icons.female), Text("Female")],
                             ),
-                            SizedBox(
-                              width: 80,
-                              child: Column(
-                                children: [Icon(Icons.male), Text("Male")],
-                              ),
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Column(
+                              children: [Icon(Icons.male), Text("Male")],
                             ),
-                          ],
-                          // endregion
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    RoundButton(
-                      titleColor: TColor.primaryTextW,
-                      backgroundColor: TColor.primary,
-                      title: "Next",
-                      onPressed: () {
+                          ),
+                        ],
+                        // endregion
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  RoundButton(
+                    titleColor: TColor.primaryTextW,
+                    backgroundColor: TColor.primary,
+                    title: "Next",
+                    onPressed: () {
+                      if (_homeAddressFormKey.currentState!.validate() &&
+                          _fullNameFormKey.currentState!.validate()) {
                         context.read<CreateProfileCubit>().profileSubmit(
                             widget.phoneNumber,
                             fullNameController.text,
                             homeAddressController.text,
                             selectGender);
-                        // Navigator.push(context, AddVehiclePage.route());
-                      },
-                    ),
-                  ],
-                ),
+                      }
+                      // Navigator.push(context, AddVehiclePage.route());
+                    },
+                  ),
+                ],
               ),
             ),
           );

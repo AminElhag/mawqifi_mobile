@@ -5,6 +5,7 @@ import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common_widget/round_button.dart';
 import 'package:mawqifi/features/auth/mobile_login/presentations/cubit/otp/otp_cubit.dart';
+import 'package:mawqifi/features/main/presentations/page/main_page.dart';
 import 'package:mawqifi/features/proflie/presentations/pages/create_profile_page.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 import 'package:otp_timer_button/otp_timer_button.dart';
@@ -75,9 +76,22 @@ class _OTPPageState extends State<OTPPage> {
               titleColor: Colors.white,
               textColor: Colors.white,
             );
-          } else if (state is OtpApiResultState){
+          } else if (state is OtpWithoutProfileApiResultState){
             Globs.hideHUD();
             Navigator.push(context, CreateProfilePage.route(widget.phoneNumber));
+          }else if(state is OtpWithProfileApiResultState){
+            Globs.udStringSet(
+                state.profileModel!.fullName, PreferenceKey.fullName);
+            Globs.udStringSet(
+                state.profileModel!.phoneNumber, PreferenceKey.phoneNumber);
+            Globs.udStringSet(
+                state.profileModel!.homeAddress, PreferenceKey.homeAddress);
+            Globs.udIntSet(
+                state.profileModel!.genderTypeId, PreferenceKey.genderTypeId);
+            Globs.udBoolSet(true, PreferenceKey.userLogin);
+            Globs.udIntSet(state.profileModel!.userId, PreferenceKey.userId);
+            Globs.hideHUD();
+            Navigator.push(context, MainPage.route());
           }
         },
         builder: (context, state) {

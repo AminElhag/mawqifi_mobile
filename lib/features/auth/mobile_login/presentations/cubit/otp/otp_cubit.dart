@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/service_call.dart';
+import 'package:mawqifi/common_model/profile_model.dart';
 import 'package:meta/meta.dart';
 
 part 'otp_state.dart';
@@ -22,15 +24,15 @@ class OtpCubit extends Cubit<OtpState> {
         },
         withSuccess: (response) async {
           if (response.statusCode == HttpStatus.ok) {
-            if (response.body.contains("true")) {
-              print("------------------------------------------------------");
-              print(response.body);
-              emit(OtpApiResultState());
+            if(response.body.isEmpty){
+              print("no profile create a new one");
+              emit(OtpWithoutProfileApiResultState());
               emit(OtpInitial());
-            } else {
-              print("------------------------------------------------------");
-              print(response.body);
-              emit(const OtpErrorState("Otp is not valid !"));
+            }else{
+              print("profile has found don't create a new one");
+              var otpResponse = ProfileModel.fromJson(jsonDecode(response.body));
+              emit(OtpWithProfileApiResultState(profileModel: otpResponse));
+              emit(OtpInitial());
             }
           } else {
             emit(OtpErrorState(response.reasonPhrase ?? "Unknown error"));

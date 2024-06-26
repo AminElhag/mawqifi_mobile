@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
+import 'package:mawqifi/common/location.dart';
 import 'package:mawqifi/common_model/nearby_parking_model.dart';
 import 'package:mawqifi/common_widget/park_item.dart';
-import 'package:mawqifi/features/parking/presentations/cubit/parking_cubit.dart';
+import 'package:mawqifi/features/parking/presentations/cubit/parking/parking_cubit.dart';
 import 'package:mawqifi/features/parking/presentations/pages/parking_details_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 
 class ParkingPage extends StatefulWidget {
@@ -24,8 +26,8 @@ class ParkingPage extends StatefulWidget {
 class _ParkingPageState extends State<ParkingPage> {
   @override
   void initState() {
-    super.initState();
     context.read<ParkingCubit>().getNearbyParking();
+    super.initState();
   }
 
   Timer searchOnStoppedTyping = Timer(
@@ -46,9 +48,9 @@ class _ParkingPageState extends State<ParkingPage> {
 
   search(value) {
     var s = value as String?;
-    if(s == null || s.isEmpty){
+    if (s == null || s.isEmpty) {
       context.read<ParkingCubit>().getNearbyParking();
-    }else{
+    } else {
       context.read<ParkingCubit>().getParkingByName(value);
     }
   }
@@ -63,6 +65,7 @@ class _ParkingPageState extends State<ParkingPage> {
           Globs.showHUD();
         } else if (state is ParkingGetNearbyParkingApiResultState) {
           apiList.clear();
+          print(state.nearbyParkingModel);
           apiList.addAll(state.nearbyParkingModel);
           Globs.hideHUD();
         } else if (state is ParkingGetParkingByNameApiResultState) {
@@ -80,6 +83,24 @@ class _ParkingPageState extends State<ParkingPage> {
             backgroundColor: Colors.black,
             titleColor: Colors.white,
             textColor: Colors.white,
+          );
+        } else if (state is ParkingLocationPermissionNotEnabledErrorState) {
+          Globs.hideHUD();
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.warning,
+            title: 'Please enable location',
+            text:
+                state.errorMessage,
+            backgroundColor: Colors.black,
+            titleColor: Colors.white,
+            textColor: Colors.white,
+            onConfirmBtnTap: () async{
+              Location.askForLocationPermission();
+              Navigator.pop(context);
+              context.read<ParkingCubit>().getNearbyParking();
+              return;
+            },
           );
         }
       },
@@ -132,13 +153,16 @@ class _ParkingPageState extends State<ParkingPage> {
                   itemBuilder: (context, index) {
                     var item = apiList[index];
                     return ParkItem(
-                      imageUrl: "assets/img/parking_test_image.png",
+                      imageUrl: item.imageUrl,
                       name: item.name,
-                      distance: item.distance,
-                      details: item.description,
+                      details: item.longAddress,
                       price: item.price,
                       onPressed: () {
-                        Navigator.push(context, ParkingDetailsPage.route());
+                        Navigator.push(
+                            context,
+                            ParkingDetailsPage.route(
+                              item.parkingId,
+                            ));
                       },
                     );
                   },

@@ -1,29 +1,25 @@
+import 'dart:ffi';
+
 class NearbyParkingModel {
   NearbyParkingModel(
-      {required this.name,
-      required this.description,
-      required this.distance,
-      required this.typeId,
-      required this.statusId,
+      {required this.parkingId,
+      required this.name,
       required this.price,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.longAddress});
 
+  final int parkingId;
   final String name;
-  final String description;
-  final double distance;
-  final int typeId;
-  final int statusId;
   final double price;
   final String? imageUrl;
+  final String longAddress;
 
   factory NearbyParkingModel.fromJson(Map<String, dynamic> json) =>
       NearbyParkingModel(
+        parkingId: json['parking_id'],
         name: json['name'],
-        description: json['description'],
-        distance: json['distance'],
-        typeId: json['typeId'],
-        statusId: json['statusId'],
         price: json['price'],
-        imageUrl: json['imageUrl']
+        imageUrl: json['big_image'],
+        longAddress: json['long_address'],
       );
 }
