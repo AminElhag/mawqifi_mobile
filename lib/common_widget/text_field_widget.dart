@@ -8,10 +8,11 @@ class TextFieldWidget extends StatefulWidget {
       required this.textInputType,
       this.validator,
       this.controller,
-      this.validationKey});
+      this.validationKey, this.text});
 
   final String hintText;
   final String labelText;
+  final String? text;
   final TextInputType textInputType;
   final String? Function(String?)? validator;
   final TextEditingController? controller;

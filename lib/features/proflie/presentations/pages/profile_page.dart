@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mawqifi/common/color-extension.dart';
+import 'package:mawqifi/common/globs.dart';
+import 'package:mawqifi/common_widget/profile_action_item.dart';
+import 'package:mawqifi/features/proflie/presentations/pages/create_profile_page.dart';
+import 'package:mawqifi/features/splash_screen/presentation/pages/splash_screen_one.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -10,174 +13,90 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 22.0),
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundImage:
-                      AssetImage("assets/img/profile_test_img.png"),
-                ),
+    return Column(
+      children: [
+        const Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 22.0),
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage:
+                    AssetImage("assets/img/profile_test_img.png"),
               ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                "John Smith",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.account_circle,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "Account Info",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
             ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.drive_eta,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "My Vehicles",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
+            SizedBox(
+              width: 16,
             ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.payments,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "Payments",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.card_giftcard,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "Refer & Earn",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.help,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "Help",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 26,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Icon(
-                    Icons.logout,
-                    color: TColor.secondary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  "Logout",
-                  style: TextStyle(fontSize: 18, color: TColor.secondaryText),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+            Text(
+              "John Smith",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "Account Info",
+          icon: Icons.account_circle,
+          onTap: () {
+            Navigator.push(context, CreateProfilePage.route(Globs.udValueString(PreferenceKey.phoneNumber),true));
+          },
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "My Vehicles",
+          icon: Icons.drive_eta,
+          onTap: () {},
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "Payments",
+          icon: Icons.payments,
+          onTap: () {},
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "Refer & Earn",
+          icon: Icons.card_giftcard,
+          onTap: () {},
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "Help",
+          icon: Icons.help,
+          onTap: () {},
+        ),
+        const SizedBox(
+          height: 26,
+        ),
+        ProfileActionItem(
+          title: "Logout",
+          icon: Icons.logout,
+          onTap: () {
+            Globs.udClearAllKey()?.then(
+              (value) {
+                if (value) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    SplashScreenOne.route(),
+                    (route) => false,
+                  );
+                }
+              },
+            );
+          },
+        ),
+      ],
     );
   }
 }

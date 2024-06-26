@@ -7,6 +7,8 @@ import 'package:mawqifi/features/splash_screen/presentation/pages/splash_screen_
 class SplashScreenOne extends StatelessWidget {
   const SplashScreenOne({super.key});
 
+  static route() => MaterialPageRoute(builder: (context) => const SplashScreenOne(),);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mawqifi/common/color-extension.dart';
@@ -9,12 +10,18 @@ import 'package:mawqifi/features/proflie/presentations/pages/add_vehicle_page.da
 import 'package:quickalert/quickalert.dart';
 
 class CreateProfilePage extends StatefulWidget {
-  const CreateProfilePage({super.key, required this.phoneNumber});
+  const CreateProfilePage(
+      {super.key, required this.phoneNumber, required this.isUpdate});
 
   final String phoneNumber;
+  final bool isUpdate;
 
-  static route(String phoneNumber) => MaterialPageRoute(
-        builder: (context) => CreateProfilePage(phoneNumber: phoneNumber),
+  static route(String phoneNumber, [bool isUpdate = false]) =>
+      MaterialPageRoute(
+        builder: (context) => CreateProfilePage(
+          phoneNumber: phoneNumber,
+          isUpdate: isUpdate,
+        ),
       );
 
   @override
@@ -22,13 +29,23 @@ class CreateProfilePage extends StatefulWidget {
 }
 
 class _CreateProfilePageState extends State<CreateProfilePage> {
-  late final String fullName, homeAddress;
   final List<bool> _isGender = [false, true];
   int selectGender = 1;
   final _fullNameFormKey = GlobalKey<FormState>();
   final _homeAddressFormKey = GlobalKey<FormState>();
   final fullNameController = TextEditingController();
   final homeAddressController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.isUpdate) {
+      selectGender = Globs.udValueInt(PreferenceKey.genderTypeId);
+      fullNameController.text = Globs.udValueString(PreferenceKey.fullName);
+      homeAddressController.text =
+          Globs.udValueString(PreferenceKey.homeAddress);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +57,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             },
             icon: const Icon(Icons.arrow_back_rounded)),
         title: Text(
-          "Create profile",
+          (widget.isUpdate) ? "Update Profile" : "Create profile",
           style: TextStyle(
             color: TColor.primaryText,
             fontSize: 25,
@@ -54,8 +71,9 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             Globs.showHUD();
           } else if (state is CreateProfileApiResultState) {
             Globs.hideHUD();
-            print("----------------------------------------------------------");
-            print(state.profileModel);
+            if (kDebugMode) {
+              print(state.profileModel);
+            }
             Globs.udStringSet(
                 state.profileModel.fullName, PreferenceKey.fullName);
             Globs.udStringSet(
@@ -66,7 +84,11 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                 state.profileModel.genderTypeId, PreferenceKey.genderTypeId);
             Globs.udBoolSet(true, PreferenceKey.userLogin);
             Globs.udIntSet(state.profileModel.userId, PreferenceKey.userId);
-            Navigator.push(context, AddVehiclePage.route());
+            if (widget.isUpdate) {
+              Navigator.pop(context);
+            } else {
+              Navigator.push(context, AddVehiclePage.route());
+            }
           } else if (state is CreateProfileErrorState) {
             Globs.hideHUD();
             QuickAlert.show(
@@ -95,7 +117,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     hintText: 'John Smith',
                     labelText: 'Full name',
                     validator: (p0) {
-                      if (p0 == null || p0.length > 6) {
+                      if (p0 == null || p0.length < 6) {
                         return "Please Enter you full name";
                       }
                       return null;
@@ -169,6 +191,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     backgroundColor: TColor.primary,
                     title: "Next",
                     onPressed: () {
+                      print( _fullNameFormKey.currentState!.validate());
                       if (_homeAddressFormKey.currentState!.validate() &&
                           _fullNameFormKey.currentState!.validate()) {
                         context.read<CreateProfileCubit>().profileSubmit(
@@ -177,7 +200,6 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                             homeAddressController.text,
                             selectGender);
                       }
-                      // Navigator.push(context, AddVehiclePage.route());
                     },
                   ),
                 ],

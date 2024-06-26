@@ -67,6 +67,10 @@ class Globs {
     preferences?.remove(key);
   }
 
+  static Future<bool>? udClearAllKey() {
+    return preferences?.clear();
+  }
+
   static Future<String> timeZone() async {
     try {
       return await FlutterTimezone.getLocalTimezone();

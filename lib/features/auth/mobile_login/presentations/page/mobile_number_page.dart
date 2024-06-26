@@ -38,11 +38,7 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_rounded)),
+        automaticallyImplyLeading: false,
       ),
       body: BlocConsumer<MobileLoginCubit, MobileLoginState>(
         listener: (context, state) {
