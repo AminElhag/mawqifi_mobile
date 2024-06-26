@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
 
   final pages = [
     const ParkingPage(),
-    const SearchPage(),
+    /*const SearchPage(),*/
     const BookingListPage(),
     const ProfilePage()
   ];
@@ -62,13 +62,13 @@ class _MainPageState extends State<MainPage> {
             ),
           )
         ],
-      ) : (pageIndex == 2) ? AppBar(
+      ) : (pageIndex == 1) ? AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: const Text(
           "Bookings", style: TextStyle(fontWeight: FontWeight.w600),
         ),
-      ) : (pageIndex == 1) ? null : AppBar(
+      ) : (pageIndex == 3) ? null : AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: const Text(
@@ -112,7 +112,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ],
             ),
-            Column(
+            /*Column(
               children: [
                 IconButton(
                   enableFeedback: false,
@@ -137,17 +137,17 @@ class _MainPageState extends State<MainPage> {
                   style: TextStyle(fontSize: 12),
                 ),
               ],
-            ),
+            ),*/
             Column(
               children: [
                 IconButton(
                   enableFeedback: false,
                   onPressed: () {
                     setState(() {
-                      pageIndex = 2;
+                      pageIndex = 1;
                     });
                   },
-                  icon: pageIndex == 2
+                  icon: pageIndex == 1
                       ? const Icon(
                           Icons.bookmarks,
                           size: 35,
@@ -170,10 +170,10 @@ class _MainPageState extends State<MainPage> {
                   enableFeedback: false,
                   onPressed: () {
                     setState(() {
-                      pageIndex = 3;
+                      pageIndex = 2;
                     });
                   },
-                  icon: pageIndex == 3
+                  icon: pageIndex == 2
                       ? const Icon(
                           Icons.person,
                           size: 35,
