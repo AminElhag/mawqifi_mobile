@@ -10,17 +10,14 @@ part 'add_vehicle_state.dart';
 class AddVehicleCubit extends Cubit<AddVehicleState> {
   AddVehicleCubit() : super(AddVehicleInitial());
 
-  void addVehicleSubmit(
-    String brand,
-    String model,
-    String platNo,
-    String color,
-    int carTypeId,
-  ) async {
+  void addVehicleSubmit(String brand, String model, String platNo, String color,
+      int carTypeId,
+      [int? id]) async {
     try {
       emit(AddVehicleHUDState());
       ServiceCall.post(
         {
+          "id":id,
           "brand": brand,
           "model": model,
           "plant_no": platNo,

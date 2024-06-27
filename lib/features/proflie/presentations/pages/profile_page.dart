@@ -3,6 +3,7 @@ import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common_widget/profile_action_item.dart';
 import 'package:mawqifi/features/proflie/presentations/pages/create_profile_page.dart';
 import 'package:mawqifi/features/splash_screen/presentation/pages/splash_screen_one.dart';
+import 'package:mawqifi/features/vehicle/presentations/pages/vehicle_list.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -50,12 +51,14 @@ class ProfilePage extends StatelessWidget {
         ProfileActionItem(
           title: "My Vehicles",
           icon: Icons.drive_eta,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, VehicleList.route());
+          },
         ),
         const SizedBox(
           height: 26,
         ),
-        ProfileActionItem(
+        /*ProfileActionItem(
           title: "Payments",
           icon: Icons.payments,
           onTap: () {},
@@ -70,7 +73,7 @@ class ProfilePage extends StatelessWidget {
         ),
         const SizedBox(
           height: 26,
-        ),
+        ),*/
         ProfileActionItem(
           title: "Help",
           icon: Icons.help,

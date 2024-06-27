@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
+import 'package:mawqifi/common_model/vehicle_model.dart';
 import 'package:mawqifi/common_widget/round_button.dart';
 import 'package:mawqifi/common_widget/text_field_widget.dart';
 import 'package:mawqifi/features/main/presentations/page/main_page.dart';
-import 'package:mawqifi/features/proflie/presentations/cubit/add_vehicle/add_vehicle_cubit.dart';
+import 'package:mawqifi/features/vehicle/presentations/cubit/add_vehicle/add_vehicle_cubit.dart';
 import 'package:quickalert/quickalert.dart';
 
 class AddVehiclePage extends StatefulWidget {
-  const AddVehiclePage({super.key});
+  const AddVehiclePage(
+      {super.key, required this.isFromProfilePage, this.vehicleModel});
 
-  static route() => MaterialPageRoute(
-        builder: (context) => const AddVehiclePage(),
+  final bool isFromProfilePage;
+  final VehicleModel? vehicleModel;
+
+  static route([VehicleModel? vehicleModel, bool isFromProfilePage = false]) =>
+      MaterialPageRoute(
+        builder: (context) => AddVehiclePage(
+          isFromProfilePage: isFromProfilePage,
+          vehicleModel: vehicleModel,
+        ),
       );
 
   @override
@@ -34,6 +43,18 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   int selectCarTypeId = 1;
 
   @override
+  void initState() {
+    if (widget.vehicleModel != null) {
+      brandController.text = widget.vehicleModel!.brand;
+      modelController.text = widget.vehicleModel!.model;
+      platNoController.text = widget.vehicleModel!.plantNo;
+      colorController.text = widget.vehicleModel!.color;
+      selectCarTypeId = widget.vehicleModel!.carTypeId;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +64,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
             },
             icon: const Icon(Icons.arrow_back_rounded)),
         title: Text(
-          "Add vehicle",
+          (widget.vehicleModel == null) ? "Add vehicle" : "Update vehicle",
           style: TextStyle(
             color: TColor.primaryText,
             fontSize: 25,
@@ -57,7 +78,9 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
             Globs.showHUD();
           } else if (state is AddVehicleApiResultState) {
             Globs.hideHUD();
-            Navigator.push(context, MainPage.route());
+            (widget.isFromProfilePage)
+                ? Navigator.pop(context)
+                : Navigator.push(context, MainPage.route());
           } else if (state is AddVehicleErrorState) {
             Globs.hideHUD();
             QuickAlert.show(
@@ -94,7 +117,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                   ),
                   const SizedBox(height: 24),
                   TextFieldWidget(
-                    validationKey: _modelFormKey,
+                      validationKey: _modelFormKey,
                       textInputType: TextInputType.name,
                       hintText: "ABC",
                       labelText: "Model",
@@ -108,7 +131,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                       }),
                   const SizedBox(height: 24),
                   TextFieldWidget(
-                    validationKey: _platNoFormKey,
+                      validationKey: _platNoFormKey,
                       textInputType: TextInputType.name,
                       labelText: "Plat No",
                       hintText: "YTP123",
@@ -122,7 +145,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                       }),
                   const SizedBox(height: 24),
                   TextFieldWidget(
-                    validationKey: _colorFormKey,
+                      validationKey: _colorFormKey,
                       textInputType: TextInputType.name,
                       labelText: "Color",
                       hintText: "White",
@@ -203,17 +226,17 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                     backgroundColor: TColor.primary,
                     title: "Register",
                     onPressed: () {
-                      if(
-                      _brandFormKey.currentState!.validate() && _modelFormKey.currentState!.validate()
-                      && _platNoFormKey.currentState!.validate() && _colorFormKey.currentState!.validate()
-                      ){
+                      if (_brandFormKey.currentState!.validate() &&
+                          _modelFormKey.currentState!.validate() &&
+                          _platNoFormKey.currentState!.validate() &&
+                          _colorFormKey.currentState!.validate()) {
                         context.read<AddVehicleCubit>().addVehicleSubmit(
-                          brandController.text,
-                          modelController.text,
-                          platNoController.text,
-                          colorController.text,
-                          selectCarTypeId,
-                        );
+                            brandController.text,
+                            modelController.text,
+                            platNoController.text,
+                            colorController.text,
+                            selectCarTypeId,
+                            widget.vehicleModel?.id);
                       }
                     },
                   ),

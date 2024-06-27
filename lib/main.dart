@@ -13,9 +13,10 @@ import 'package:mawqifi/features/booking/presentation/cubit/booking_list/booking
 import 'package:mawqifi/features/main/presentations/page/main_page.dart';
 import 'package:mawqifi/features/parking/presentations/cubit/parking/parking_cubit.dart';
 import 'package:mawqifi/features/parking/presentations/cubit/parking_details/parking_details_cubit.dart';
-import 'package:mawqifi/features/proflie/presentations/cubit/add_vehicle/add_vehicle_cubit.dart';
 import 'package:mawqifi/features/proflie/presentations/cubit/create_profile/create_profile_cubit.dart';
 import 'package:mawqifi/features/splash_screen/presentation/pages/splash_screen_one.dart';
+import 'package:mawqifi/features/vehicle/presentations/cubit/add_vehicle/add_vehicle_cubit.dart';
+import 'package:mawqifi/features/vehicle/presentations/cubit/vehicle_list/vehicle_list_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? preferences;
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BookingListCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VehicleListCubit(),
         ),
       ],
       child: MaterialApp(

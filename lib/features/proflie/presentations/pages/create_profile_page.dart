@@ -6,7 +6,7 @@ import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common_widget/round_button.dart';
 import 'package:mawqifi/common_widget/text_field_widget.dart';
 import 'package:mawqifi/features/proflie/presentations/cubit/create_profile/create_profile_cubit.dart';
-import 'package:mawqifi/features/proflie/presentations/pages/add_vehicle_page.dart';
+import 'package:mawqifi/features/vehicle/presentations/pages/add_vehicle_page.dart';
 import 'package:quickalert/quickalert.dart';
 
 class CreateProfilePage extends StatefulWidget {

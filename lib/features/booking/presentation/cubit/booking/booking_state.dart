@@ -28,8 +28,6 @@ final class BookingErrorState extends BookingState {
   List<Object> get props => [];
 }
 
-
-
 final class BookingErrorApiResultState extends BookingState {
   final ErrorResponse errorResponse;
 
