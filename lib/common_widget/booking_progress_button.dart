@@ -14,30 +14,38 @@ class BookingProgressButton extends StatelessWidget {
       onPressed: onPressed,
       minWidth: double.maxFinite,
       elevation: 0,
-      color: (statusId == 0)
+      color: (statusId == BookingProgress.wanting.index)
           ? Colors.orange.shade100
-          : (statusId == 1)
-              ? Colors.grey.shade100
-              : Colors.red.shade100,
+          : (statusId == BookingProgress.inProgress.index)
+          ? Colors.green.shade100
+          : (statusId == BookingProgress.completed.index)
+          ? Colors.blue.shade100
+          : Colors.red.shade100,
       height: 40,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
       child: Text(
-        (statusId == 0)
-            ? "In Progress"
-            : (statusId == 1)
-                ? "Completed"
-                : "Canceled",
+        (statusId == BookingProgress.wanting.index)
+            ? "Wanting"
+            : (statusId == BookingProgress.inProgress.index)
+                ? "In Progress"
+                : (statusId == BookingProgress.completed.index)
+                    ? "Completed"
+                    : "Canceled",
         style: TextStyle(
-          color: (statusId == 0)
+          color: (statusId == BookingProgress.wanting.index)
               ? Colors.orange
-              : (statusId == 1)
-                  ? TColor.secondaryText
-                  : Colors.red,
+              : (statusId == BookingProgress.inProgress.index)
+              ? Colors.green
+              : (statusId == BookingProgress.completed.index)
+              ? Colors.blue
+              : Colors.red,
           fontSize: 16,
         ),
       ),
     );
   }
 }
+
+enum BookingProgress { wanting, inProgress, completed, canceled }
