@@ -58,6 +58,17 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
               titleColor: Colors.white,
               textColor: Colors.white,
             );
+          } else if (state is MobileLoginErrorApiResultState) {
+            Globs.hideHUD();
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: state.errorResponse.statusCode.toString(),
+              text: state.errorResponse.message,
+              backgroundColor: Colors.black,
+              titleColor: Colors.white,
+              textColor: Colors.white,
+            );
           }
         },
         builder: (context, state) {

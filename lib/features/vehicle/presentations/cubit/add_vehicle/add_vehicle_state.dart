@@ -21,3 +21,13 @@ final class AddVehicleErrorState extends AddVehicleState {
   @override
   List<Object> get props => [];
 }
+
+
+final class AddVehicleErrorApiResultState extends AddVehicleState {
+  final ErrorResponse errorResponse;
+
+  const AddVehicleErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}

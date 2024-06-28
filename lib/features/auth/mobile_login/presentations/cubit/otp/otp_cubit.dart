@@ -5,6 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/service_call.dart';
+import 'package:mawqifi/common_model/error_response.dart';
+import 'package:mawqifi/common_model/otp_verification_model.dart';
 import 'package:mawqifi/common_model/profile_model.dart';
 import 'package:meta/meta.dart';
 
@@ -24,18 +26,27 @@ class OtpCubit extends Cubit<OtpState> {
         },
         withSuccess: (response) async {
           if (response.statusCode == HttpStatus.ok) {
-            if(response.body.isEmpty){
-              print("no profile create a new one");
-              emit(OtpWithoutProfileApiResultState());
-              emit(OtpInitial());
+            var otpVerificationModel = OtpVerificationModel.fromJson(jsonDecode(response.body));
+            if(otpVerificationModel.isValid){
+              if(otpVerificationModel.token!.isNotEmpty){
+                Globs.udStringSet(otpVerificationModel.token!, PreferenceKey.token);
+              }
+              if (otpVerificationModel.profile == null) {
+                print("no profile create a new one");
+                emit(OtpWithoutProfileApiResultState());
+                emit(OtpInitial());
+              }else{
+                emit(OtpWithProfileApiResultState(
+                    otpVerificationModel: otpVerificationModel));
+                emit(OtpInitial());
+              }
             }else{
-              print("profile has found don't create a new one");
-              var otpResponse = ProfileModel.fromJson(jsonDecode(response.body));
-              emit(OtpWithProfileApiResultState(profileModel: otpResponse));
-              emit(OtpInitial());
+              emit(const OtpErrorState("OTP is not valid"));
             }
           } else {
-            emit(OtpErrorState(response.reasonPhrase ?? "Unknown error"));
+            emit(OtpErrorApiResultState(ErrorResponse.fromJson(
+              jsonDecode(response.body),
+            )));
           }
         },
       );
@@ -53,8 +64,8 @@ class OtpCubit extends Cubit<OtpState> {
           "os_type": (Platform.isAndroid)
               ? "Android"
               : (Platform.isIOS)
-              ? "IOS"
-              : "Unknown",
+                  ? "IOS"
+                  : "Unknown",
         },
         SVKey.svMobileLogin,
         withSuccess: (response) async {
@@ -62,8 +73,7 @@ class OtpCubit extends Cubit<OtpState> {
             emit(ResendOtpApiResultState());
             emit(OtpInitial());
           } else {
-            emit(OtpErrorState(
-                response.reasonPhrase ?? "Unknown error"));
+            emit(OtpErrorState(response.reasonPhrase ?? "Unknown error"));
           }
         },
         withFailure: (response) async {

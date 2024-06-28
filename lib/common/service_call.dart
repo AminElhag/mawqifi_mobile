@@ -21,11 +21,12 @@ class ServiceCall {
       try {
         var headers = {"Content-Type": "application/json"};
         if (isTokenApi) {
-          var token = Globs.udValueString("token");
-          headers["access_token"] = token;
+          var token = Globs.udValueString(PreferenceKey.token);
+          headers["Authorization"] = 'Bearer $token';
         }
         print(path.toString());
         print(parameter);
+        print(headers);
         http
             .post(Uri.parse(path),
                 body: jsonEncode(parameter), headers: headers)
@@ -63,11 +64,12 @@ class ServiceCall {
       try {
         var headers = {"Content-Type": "application/json"};
         if (isTokenApi) {
-          var token = Globs.udValueString("token");
-          headers["access_token"] = token;
+          var token = Globs.udValueString(PreferenceKey.token);
+          headers["Authorization"] = 'Bearer $token';
         }
         print(Uri.parse(path).replace(queryParameters: parameter));
-        http.get(Uri.parse(path).replace(queryParameters: parameter)).timeout(
+        print(headers);
+        http.get(Uri.parse(path).replace(queryParameters: parameter),headers: headers).timeout(
           const Duration(seconds: 30),
           onTimeout: () {
             throw Exception("Request Time out");

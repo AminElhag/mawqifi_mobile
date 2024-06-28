@@ -22,3 +22,12 @@ final class MobileLoginErrorState extends MobileLoginState {
   @override
   List<Object> get props => [];
 }
+
+final class MobileLoginErrorApiResultState extends MobileLoginState {
+  final ErrorResponse errorResponse;
+
+  const MobileLoginErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}

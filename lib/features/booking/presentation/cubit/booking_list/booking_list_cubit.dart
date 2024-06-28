@@ -20,6 +20,7 @@ class BookingListCubit extends Cubit<BookingListState> {
       ServiceCall.get(
         {"profile_id": userId.toString()},
         SVKey.svBooking,
+        isTokenApi: true,
         withFailure: (response) async {
           emit(BookingListErrorState(response));
         },

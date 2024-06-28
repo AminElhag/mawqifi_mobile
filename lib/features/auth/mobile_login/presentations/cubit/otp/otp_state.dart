@@ -15,9 +15,9 @@ final class OtpHUDState extends OtpState {}
 final class OtpWithoutProfileApiResultState extends OtpState {}
 
 final class OtpWithProfileApiResultState extends OtpState {
-  final ProfileModel? profileModel;
+  final OtpVerificationModel otpVerificationModel;
 
-  const OtpWithProfileApiResultState({required this.profileModel});
+  const OtpWithProfileApiResultState({required this.otpVerificationModel});
 
   @override
   List<Object> get props => [];
@@ -29,6 +29,15 @@ final class OtpErrorState extends OtpState {
   final String errorMessage;
 
   const OtpErrorState(this.errorMessage);
+
+  @override
+  List<Object> get props => [];
+}
+
+final class OtpErrorApiResultState extends OtpState {
+  final ErrorResponse errorResponse;
+
+  const OtpErrorApiResultState(this.errorResponse);
 
   @override
   List<Object> get props => [];

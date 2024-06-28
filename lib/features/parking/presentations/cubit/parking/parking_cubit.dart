@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/location.dart';
 import 'package:mawqifi/common/service_call.dart';
+import 'package:mawqifi/common_model/error_response.dart';
 import 'package:mawqifi/common_model/nearby_parking_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -28,6 +29,7 @@ class ParkingCubit extends Cubit<ParkingState> {
                   "longitude": position.longitude.toString()
                 },
                 SVKey.svGetNearbyParking,
+                isTokenApi: true,
                 withFailure: (response) async {
                   emit(ParkingErrorState(response));
                 },
@@ -41,8 +43,8 @@ class ParkingCubit extends Cubit<ParkingState> {
                         nearbyParkingModel: nps));
                     emit(ParkingInitial());
                   } else {
-                    emit(ParkingErrorState(
-                        response.reasonPhrase ?? "Unknown error"));
+                    emit(ParkingErrorApiResultState(
+                        ErrorResponse.fromJson(jsonDecode(response.body))));
                   }
                 },
               );
@@ -76,6 +78,7 @@ class ParkingCubit extends Cubit<ParkingState> {
               "longitude": position.longitude.toString(),
             },
             SVKey.svGetNearbyParking,
+            isTokenApi: true,
             withFailure: (response) async {
               emit(ParkingErrorState(response.toString()));
             },
@@ -88,8 +91,8 @@ class ParkingCubit extends Cubit<ParkingState> {
                     nearbyParkingModel: nps));
                 emit(ParkingInitial());
               } else {
-                emit(ParkingErrorState(
-                    response.reasonPhrase ?? "Unknown error"));
+                emit(ParkingErrorApiResultState(
+                    ErrorResponse.fromJson(jsonDecode(response.body))));
               }
             },
           );

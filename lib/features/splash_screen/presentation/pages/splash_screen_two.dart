@@ -44,7 +44,7 @@ class SplashScreenTwo extends StatelessWidget {
                   maxLines: 6,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  "parking spot is now eas•t than with P•ny. browse ttvoL• spots. select the om that suits y•ou best. c«tWete bookirv",
+                  "Booking your parking spot is now easier thna ever. Simply browse through available spots, select the one that suits you best, and complete your booking.",
                 ),
               ),
             ),

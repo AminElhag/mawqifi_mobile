@@ -22,6 +22,7 @@ class BookingCubit extends Cubit<BookingState> {
           "user_id": userId.toString(),
         },
         SVKey.svVehicle,
+        isTokenApi: true,
         withFailure: (response) async {
           emit(BookingErrorState(response));
         },
@@ -61,6 +62,7 @@ class BookingCubit extends Cubit<BookingState> {
           "until": until.toUtc().toString(),
         },
         SVKey.svBooking,
+        isTokenApi: true,
         withFailure: (response) async {
           emit(BookingErrorState(response));
         },

@@ -42,7 +42,7 @@ class SplashScreenOne extends StatelessWidget {
                   maxLines: 6,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  "Whether you're driving a car, riding a bike, or parking an RV. Parky has got you covered. tt allows you to find the perfect parking spot advocated to your vehicle's reeds.",
+                  "Wherever you're we allow you to find the perfect parking spot tailored to your vehicle's needs.",
                 ),
               ),
             ),

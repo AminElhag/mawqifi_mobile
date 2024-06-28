@@ -29,3 +29,13 @@ final class ParkingDetailsErrorState extends ParkingDetailsState {
   @override
   List<Object> get props => [];
 }
+
+final class ParkingDetailsErrorApiResultState extends ParkingDetailsState {
+  final ErrorResponse errorResponse;
+
+  const ParkingDetailsErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}
+

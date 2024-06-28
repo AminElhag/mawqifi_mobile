@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/service_call.dart';
+import 'package:mawqifi/common_model/error_response.dart';
 import 'package:mawqifi/common_model/parking_details_model.dart';
 import 'package:meta/meta.dart';
 
@@ -18,14 +19,21 @@ class ParkingDetailsCubit extends Cubit<ParkingDetailsState> {
       ServiceCall.get(
         {"parking_id": parkingId.toString()},
         SVKey.svGetParkingDetails,
+        isTokenApi: true,
         withFailure: (response) async {
           emit(ParkingDetailsErrorState(response));
         },
         withSuccess: (response) async {
-          emit(ParkingDetailsApiResultState(
-              parkingDetailsModel:
-                  ParkingDetailsModel.fromJson(json.decode(response.body))));
-          emit(ParkingDetailsInitial());
+          if (response.statusCode == HttpStatus.ok) {
+            emit(ParkingDetailsApiResultState(
+                parkingDetailsModel:
+                    ParkingDetailsModel.fromJson(json.decode(response.body))));
+            emit(ParkingDetailsInitial());
+          } else {
+            emit(ParkingDetailsErrorApiResultState(
+                ErrorResponse.fromJson(json.decode(response.body))));
+            emit(ParkingDetailsInitial());
+          }
         },
       );
     } catch (e) {

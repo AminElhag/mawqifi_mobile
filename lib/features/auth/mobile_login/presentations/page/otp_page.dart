@@ -81,15 +81,15 @@ class _OTPPageState extends State<OTPPage> {
             Navigator.push(context, CreateProfilePage.route(widget.phoneNumber));
           }else if(state is OtpWithProfileApiResultState){
             Globs.udStringSet(
-                state.profileModel!.fullName, PreferenceKey.fullName);
+                state.otpVerificationModel.profile!.fullName, PreferenceKey.fullName);
             Globs.udStringSet(
-                state.profileModel!.phoneNumber, PreferenceKey.phoneNumber);
+                state.otpVerificationModel.profile!.phoneNumber, PreferenceKey.phoneNumber);
             Globs.udStringSet(
-                state.profileModel!.homeAddress, PreferenceKey.homeAddress);
+                state.otpVerificationModel.profile!.homeAddress, PreferenceKey.homeAddress);
             Globs.udIntSet(
-                state.profileModel!.genderTypeId, PreferenceKey.genderTypeId);
+                state.otpVerificationModel.profile!.genderTypeId, PreferenceKey.genderTypeId);
             Globs.udBoolSet(true, PreferenceKey.userLogin);
-            Globs.udIntSet(state.profileModel!.userId, PreferenceKey.userId);
+            Globs.udIntSet(state.otpVerificationModel.profile!.userId, PreferenceKey.userId);
             Globs.hideHUD();
             Navigator.push(context, MainPage.route());
           }

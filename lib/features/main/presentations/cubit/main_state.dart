@@ -28,3 +28,12 @@ final class MainErrorState extends MainInitial {
   @override
   List<Object> get props => [];
 }
+
+final class MainErrorApiResultState extends MainInitial {
+  final ErrorResponse errorResponse;
+
+  MainErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}

@@ -92,6 +92,17 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
               titleColor: Colors.white,
               textColor: Colors.white,
             );
+          } else if (state is AddVehicleErrorApiResultState) {
+            Globs.hideHUD();
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: state.errorResponse.statusCode.toString(),
+              text: state.errorResponse.message,
+              backgroundColor: Colors.black,
+              titleColor: Colors.white,
+              textColor: Colors.white,
+            );
           }
         },
         builder: (context, state) {

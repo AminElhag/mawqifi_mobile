@@ -64,6 +64,18 @@ class _ParkingDetailsPageState extends State<ParkingDetailsPage> {
             );
           } else if (state is ParkingDetailsApiResultState) {
             parkingDetailsModel = state.parkingDetailsModel;
+          }else if(state is ParkingDetailsErrorApiResultState){
+            Globs.hideHUD();
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: state.errorResponse.statusCode.toString(),
+              text: state.errorResponse.message,
+              backgroundColor: Colors.black,
+              titleColor: Colors.white,
+              textColor: Colors.white,
+            );
+
           }
         },
         builder: (context, state) {

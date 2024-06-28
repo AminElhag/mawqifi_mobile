@@ -119,4 +119,5 @@ class PreferenceKey {
   static const fullName = "FULL_NAME";
   static const homeAddress = "HOME_ADDRESS";
   static const userId = "USER_ID";
+  static const token = "token";
 }

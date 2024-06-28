@@ -29,7 +29,7 @@ class SplashScreenThree extends StatelessWidget {
                   maxLines: 6,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  "goodbye to the frustratÜ' ot parking spots. With Park. can Start stress—free 90",
+                  "Say goodbye to the frustration of searching for parking spots. Now you can start parking smarter today. Experience now the stress-free parking wherever you go.",
                 ),
               ),
             ),

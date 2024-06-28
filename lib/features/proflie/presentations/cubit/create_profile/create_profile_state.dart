@@ -29,3 +29,12 @@ final class CreateProfileErrorState extends CreateProfileState {
   @override
   List<Object> get props => [];
 }
+
+final class CreateProfileErrorApiResultState extends CreateProfileState {
+  final ErrorResponse errorResponse;
+
+  const CreateProfileErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}

@@ -45,3 +45,12 @@ final class ParkingLocationPermissionNotEnabledErrorState extends ParkingState {
   @override
   List<Object> get props => [];
 }
+
+final class ParkingErrorApiResultState extends ParkingState {
+  final ErrorResponse errorResponse;
+
+  const ParkingErrorApiResultState(this.errorResponse);
+
+  @override
+  List<Object> get props => [];
+}
