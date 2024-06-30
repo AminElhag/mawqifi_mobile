@@ -1,2 +1,16 @@
-# mawqifi_mobile
-Mawqifi app is the perfect solution to your parking needs! Our app makes finding nearby parking spaces easy. With real-time avail- ability updates, you'll always know where to park your car and we offer flexible payment options and allow you to reserve your spot in advance from the comfort of your own home.
+# mawqifi
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
