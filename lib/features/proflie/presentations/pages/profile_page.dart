@@ -16,25 +16,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 22.0),
-              child: CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                    AssetImage("assets/img/profile_test_img.png"),
-              ),
-            ),
-            SizedBox(
-              width: 16,
-            ),
-            Text(
-              "John Smith",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
-            )
-          ],
-        ),
         const SizedBox(
           height: 26,
         ),

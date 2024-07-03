@@ -4,6 +4,7 @@ import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common_model/booking_item_model.dart';
 import 'package:mawqifi/common_widget/booking_item.dart';
+import 'package:mawqifi/common_widget/nothing_to_show_widget.dart';
 import 'package:mawqifi/features/booking/presentation/cubit/booking_list/booking_list_cubit.dart';
 import 'package:quickalert/quickalert.dart';
 
@@ -71,7 +72,7 @@ class _BookingListPageState extends State<BookingListPage> {
             children: [
               SizedBox(
                 height: context.height - 210,
-                child: ListView.builder(
+                child: (items.isNotEmpty) ? ListView.builder(
                   itemCount: items.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -88,7 +89,7 @@ class _BookingListPageState extends State<BookingListPage> {
                       onPressed: () {},
                     );
                   },
-                ),
+                ): const NothingToShowWidget(),
               ),
             ],
           );

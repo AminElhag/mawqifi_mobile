@@ -30,7 +30,8 @@ class SplashScreenTwo extends StatelessWidget {
               ],
             ),
           ),
-          SvgPicture.asset("assets/img/parking_amico.svg"),
+          const Spacer(),
+          Image.asset("assets/img/parking_amico.png"),
           const Text(
             "Book with Ease",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -49,6 +50,7 @@ class SplashScreenTwo extends StatelessWidget {
               ),
             ),
           ),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(

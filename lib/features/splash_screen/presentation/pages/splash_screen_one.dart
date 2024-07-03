@@ -29,7 +29,8 @@ class SplashScreenOne extends StatelessWidget {
               ],
             ),
           ),
-          SvgPicture.asset("assets/img/girl_in_parking.svg"),
+          Spacer(),
+          Image.asset("assets/img/girl_in_parking.png"),
           const Text(
             "Find Your Perfect Spot",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -47,6 +48,7 @@ class SplashScreenOne extends StatelessWidget {
               ),
             ),
           ),
+          Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(

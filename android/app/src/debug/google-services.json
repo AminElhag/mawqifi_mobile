@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365914491686",
+    "project_id": "mawqifi-275a5",
+    "storage_bucket": "mawqifi-275a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365914491686:android:9b98817f1113f51d0e4fe7",
+        "android_client_info": {
+          "package_name": "com.example.mawqifi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR3McR4SsORot52EkD5othJHOCNekaQM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

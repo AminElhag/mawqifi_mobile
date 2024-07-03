@@ -16,7 +16,8 @@ class SplashScreenThree extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 160,),
-          SvgPicture.asset("assets/img/optimiza-inventario.svg"),
+          const Spacer(),
+          Image.asset("assets/img/optimiza-inventario.png"),
           const Text(
             "Start Parking Smarter",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -34,6 +35,7 @@ class SplashScreenThree extends StatelessWidget {
               ),
             ),
           ),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(

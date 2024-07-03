@@ -6,10 +6,10 @@ import 'package:mawqifi/common/color-extension.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/location.dart';
 import 'package:mawqifi/common_model/nearby_parking_model.dart';
+import 'package:mawqifi/common_widget/nothing_to_show_widget.dart';
 import 'package:mawqifi/common_widget/park_item.dart';
 import 'package:mawqifi/features/parking/presentations/cubit/parking/parking_cubit.dart';
 import 'package:mawqifi/features/parking/presentations/pages/parking_details_page.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:quickalert/quickalert.dart';
 
 class ParkingPage extends StatefulWidget {
@@ -90,19 +90,18 @@ class _ParkingPageState extends State<ParkingPage> {
             context: context,
             type: QuickAlertType.warning,
             title: 'Please enable location',
-            text:
-                state.errorMessage,
+            text: state.errorMessage,
             backgroundColor: Colors.black,
             titleColor: Colors.white,
             textColor: Colors.white,
-            onConfirmBtnTap: () async{
+            onConfirmBtnTap: () async {
               Location.askForLocationPermission();
               Navigator.pop(context);
               context.read<ParkingCubit>().getNearbyParking();
               return;
             },
           );
-        }else if(state is ParkingErrorApiResultState){
+        } else if (state is ParkingErrorApiResultState) {
           Globs.hideHUD();
           QuickAlert.show(
             context: context,
@@ -113,7 +112,6 @@ class _ParkingPageState extends State<ParkingPage> {
             titleColor: Colors.white,
             textColor: Colors.white,
           );
-
         }
       },
       builder: (context, state) {
@@ -158,7 +156,7 @@ class _ParkingPageState extends State<ParkingPage> {
               ),
               SizedBox(
                 height: context.height - 330,
-                child: ListView.builder(
+                child: (apiList.isNotEmpty) ? ListView.builder(
                   itemCount: apiList.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -178,7 +176,7 @@ class _ParkingPageState extends State<ParkingPage> {
                       },
                     );
                   },
-                ),
+                ):const NothingToShowWidget(),
               ),
             ],
           ),

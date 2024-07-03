@@ -34,19 +34,19 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ((pageIndex == 0) ? AppBar(
-        leading: const Padding(
+        /*leading: const Padding(
           padding: EdgeInsets.only(left: 16.0),
           child: CircleAvatar(
             radius: 50,
             backgroundImage: AssetImage("assets/img/profile_test_img.png"),
           ),
-        ),
+        ),*/
         leadingWidth: 64,
         title: Text(
           "Welcome 👋 ${Globs.udValueString(PreferenceKey.fullName)}",
           style: TextStyle(fontSize: 16, color: TColor.secondaryText),
         ),
-        actions: [
+        /*actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(
@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
               ],
             ),
           )
-        ],
+        ],*/
       ) : (pageIndex == 1) ? AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
