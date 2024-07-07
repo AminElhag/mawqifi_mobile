@@ -33,6 +33,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: ((pageIndex == 0) ? AppBar(
         /*leading: const Padding(
           padding: EdgeInsets.only(left: 16.0),

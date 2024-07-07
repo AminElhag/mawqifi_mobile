@@ -58,6 +58,7 @@ class _ParkingPageState extends State<ParkingPage> {
   @override
   Widget build(BuildContext context) {
     final List<NearbyParkingModel> apiList = [];
+    context.read<ParkingCubit>().getNearbyParking();
 
     return BlocConsumer<ParkingCubit, ParkingState>(
       listener: (context, state) {
@@ -155,7 +156,7 @@ class _ParkingPageState extends State<ParkingPage> {
                 height: 6,
               ),
               SizedBox(
-                height: context.height - 330,
+                height: context.height - 310,
                 child: (apiList.isNotEmpty) ? ListView.builder(
                   itemCount: apiList.length,
                   scrollDirection: Axis.vertical,

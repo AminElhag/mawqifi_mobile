@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mawqifi/common/color-extension.dart';
 
@@ -10,6 +11,9 @@ class BookingProgressButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print(statusId);
+    }
     return MaterialButton(
       onPressed: onPressed,
       minWidth: double.maxFinite,
