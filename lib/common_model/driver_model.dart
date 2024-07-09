@@ -20,6 +20,6 @@ class DriverModel {
 
   factory DriverModel.fromJson(Map<String, dynamic> json) => DriverModel(
       id: json["id"],
-      phoneNumber: json['phone_number'],
-      fullName: json['full_name']);
+      phoneNumber: json['phoneNumber'],
+      fullName: json['fullName']);
 }

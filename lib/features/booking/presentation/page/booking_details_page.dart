@@ -175,7 +175,7 @@ class _BookingDetailsPageState extends State<BookingDetailsPage>
                       child: Row(
                         children: [
                           Expanded(
-                            flex: 3,
+                            flex: 5,
                             child: Text(
                               bookingDetails!.parking.longAddress,
                               maxLines: 2,
@@ -185,7 +185,7 @@ class _BookingDetailsPageState extends State<BookingDetailsPage>
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: MaterialButton(
                               onPressed: () {
                                 Location.launchGoogleMaps(bookingDetails!.parking.latitude, bookingDetails!.parking.longitude);
@@ -284,7 +284,7 @@ class _BookingDetailsPageState extends State<BookingDetailsPage>
               ),
             ));
         await controller.setStaticPosition(
-            [GeoPoint(latitude: value.longitude, longitude: value.longitude)],
+            [GeoPoint(latitude: bookingDetails!.parking.latitude, longitude: bookingDetails!.parking.longitude)],
             "pickup");
       },
     );
