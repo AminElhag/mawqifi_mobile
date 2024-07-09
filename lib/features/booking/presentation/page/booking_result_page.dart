@@ -2,13 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mawqifi/common/color-extension.dart';
-import 'package:mawqifi/features/main/presentations/page/main_page.dart';
+import 'package:mawqifi/common_model/booking_a_spot_model.dart';
+import 'package:mawqifi/features/booking/presentation/page/booking_details_page.dart';
+import 'package:mawqifi/features/booking/presentation/page/booking_page.dart';
 
 class BookingResultPage extends StatefulWidget {
-  const BookingResultPage({super.key});
+  const BookingResultPage({
+    super.key,
+    required this.bookingASpotModel,
+  });
 
-  static route() =>
-      MaterialPageRoute(builder: (context) => const BookingResultPage());
+  final BookingASpotModel bookingASpotModel;
+
+  static route(BookingASpotModel bookingASpotModel) => MaterialPageRoute(
+      builder: (context) => BookingResultPage(
+            bookingASpotModel: bookingASpotModel,
+          ));
 
   @override
   State<BookingResultPage> createState() => _BookingResultPageState();
@@ -19,9 +28,9 @@ class _BookingResultPageState extends State<BookingResultPage> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () {
-        Navigator.push(context, MainPage.route());
+        Navigator.pushReplacement(context, BookingDetailsPage.route(widget.bookingASpotModel.bookingId));
       },
     );
   }

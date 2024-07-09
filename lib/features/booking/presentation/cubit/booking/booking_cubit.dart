@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mawqifi/common/globs.dart';
 import 'package:mawqifi/common/service_call.dart';
+import 'package:mawqifi/common_model/booking_a_spot_model.dart';
 import 'package:mawqifi/common_model/error_response.dart';
 import 'package:mawqifi/common_model/vehicle_model.dart';
 
@@ -71,7 +72,9 @@ class BookingCubit extends Cubit<BookingState> {
             print(response.body);
           }
           if (response.statusCode == HttpStatus.ok) {
-            emit(BookingSubmitApiResultState());
+            emit(BookingSubmitApiResultState(
+                bookingSubmitModel:
+                    BookingASpotModel.fromJson(jsonDecode(response.body))));
             emit(BookingInitial());
           } else {
             emit(BookingErrorApiResultState(

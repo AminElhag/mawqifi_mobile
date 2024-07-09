@@ -156,7 +156,7 @@ class _ParkingPageState extends State<ParkingPage> {
                 height: 6,
               ),
               SizedBox(
-                height: context.height - 310,
+                height: context.height - 330,
                 child: (apiList.isNotEmpty) ? ListView.builder(
                   itemCount: apiList.length,
                   scrollDirection: Axis.vertical,

@@ -17,7 +17,11 @@ final class BookingGetProfileVehicleApiResultState extends BookingState {
   const BookingGetProfileVehicleApiResultState({required this.vehicles});
 }
 
-final class BookingSubmitApiResultState extends BookingState {}
+final class BookingSubmitApiResultState extends BookingState {
+  final BookingASpotModel bookingSubmitModel;
+
+  const BookingSubmitApiResultState({required this.bookingSubmitModel});
+}
 
 final class BookingErrorState extends BookingState {
   final String errorMessage;

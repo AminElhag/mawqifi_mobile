@@ -96,7 +96,7 @@ class _BookingPageState extends State<BookingPage> {
             vehicles = state.vehicles;
           } else if (state is BookingSubmitApiResultState) {
             Globs.hideHUD();
-            Navigator.push(context, BookingResultPage.route());
+            Navigator.pushReplacement(context, BookingResultPage.route(state.bookingSubmitModel));
           } else if (state is BookingErrorApiResultState) {
             Globs.hideHUD();
             QuickAlert.show(

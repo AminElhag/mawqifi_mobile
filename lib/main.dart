@@ -9,6 +9,7 @@ import 'package:mawqifi/common/http_override.dart';
 import 'package:mawqifi/features/auth/mobile_login/presentations/cubit/mobile_login/mobile_login_cubit.dart';
 import 'package:mawqifi/features/auth/mobile_login/presentations/cubit/otp/otp_cubit.dart';
 import 'package:mawqifi/features/booking/presentation/cubit/booking/booking_cubit.dart';
+import 'package:mawqifi/features/booking/presentation/cubit/booking_details/booking_details_cubit.dart';
 import 'package:mawqifi/features/booking/presentation/cubit/booking_list/booking_list_cubit.dart';
 import 'package:mawqifi/features/main/presentations/page/main_page.dart';
 import 'package:mawqifi/features/parking/presentations/cubit/parking/parking_cubit.dart';
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => VehicleListCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BookingDetailsCubit(),
         ),
       ],
       child: MaterialApp(

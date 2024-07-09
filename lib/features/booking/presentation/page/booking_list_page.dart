@@ -6,6 +6,7 @@ import 'package:mawqifi/common_model/booking_item_model.dart';
 import 'package:mawqifi/common_widget/booking_item.dart';
 import 'package:mawqifi/common_widget/nothing_to_show_widget.dart';
 import 'package:mawqifi/features/booking/presentation/cubit/booking_list/booking_list_cubit.dart';
+import 'package:mawqifi/features/booking/presentation/page/booking_details_page.dart';
 import 'package:quickalert/quickalert.dart';
 
 class BookingListPage extends StatefulWidget {
@@ -32,6 +33,8 @@ class _BookingListPageState extends State<BookingListPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<BookingListCubit>().getBookingList(
+        Globs.udValueInt(PreferenceKey.userId));
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: BlocConsumer<BookingListCubit, BookingListState>(
@@ -86,7 +89,9 @@ class _BookingListPageState extends State<BookingListPage> {
                       startTime: item.from,
                       endTime: item.until,
                       statusId: item.statusId as int? ?? 2,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, BookingDetailsPage.route(item.id));
+                      },
                     );
                   },
                 ): const NothingToShowWidget(),

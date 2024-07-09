@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:mawqifi/common/globs.dart';
 
@@ -60,15 +61,19 @@ class ServiceCall {
     ResFailure? withFailure,
   }) {
     Future(() {
-      print(parameter);
+      if (kDebugMode) {
+        print(parameter);
+      }
       try {
         var headers = {"Content-Type": "application/json"};
         if (isTokenApi) {
           var token = Globs.udValueString(PreferenceKey.token);
           headers["Authorization"] = 'Bearer $token';
         }
-        print(Uri.parse(path).replace(queryParameters: parameter));
-        print(headers);
+        if (kDebugMode) {
+          print(Uri.parse(path).replace(queryParameters: parameter));
+          print(headers);
+        }
         http.get(Uri.parse(path).replace(queryParameters: parameter),headers: headers).timeout(
           const Duration(seconds: 30),
           onTimeout: () {

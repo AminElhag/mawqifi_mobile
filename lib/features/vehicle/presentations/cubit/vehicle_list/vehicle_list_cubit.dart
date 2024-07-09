@@ -20,6 +20,7 @@ class VehicleListCubit extends Cubit<VehicleListState> {
       ServiceCall.get(
         {"user_id": userId.toString()},
         SVKey.svVehicle,
+        isTokenApi: true,
         withFailure: (response) async {
           emit(VehicleListErrorState(response));
         },

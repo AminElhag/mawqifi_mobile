@@ -81,7 +81,7 @@ class Globs {
 }
 
 class SVKey {
-  static const mainUrl = "http://165.232.123.221:9215";
+  static const mainUrl = "http://192.168.212.44:9215";
   static const baseUrl = "$mainUrl/api/";
   static const nodeUrl = mainUrl;
   static const authBaseUrl = "${baseUrl}auth/";
@@ -97,6 +97,9 @@ class SVKey {
   static const svGetParkingDetails = "${svGetNearbyParking}/details";
 
   static const svBooking = "${baseUrl}booking";
+  static const svBookingDetails = "${svBooking}/details";
+  static const svBookingCanceled = "${svBooking}/canceled";
+  static const svBookingComplete = "${svBooking}/completed";
 }
 
 class KKey {
